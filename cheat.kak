@@ -15,7 +15,7 @@ define-command -docstring 'cheat <args>...: lookup cheat.sh' \
         fi
         fifo=$(mktemp -d -t kak-XXXXXXXX)/fifo
         mkfifo $fifo
-        ($cht $@ ?style=bw > $fifo ) &> /dev/null < /dev/null &
+        ($cht $@ ?style=bw > $fifo ) > /dev/null 2>&1 < /dev/null &
         echo "edit! -fifo $fifo *cheat*
               hook buffer BufClose .* %{ nop %sh{ rm -rf $(dirname $fifo) } }"
     }}
